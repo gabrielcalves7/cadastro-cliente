@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Home Page')
+@section('title', $customer->id ? "Editar Cliente" : "Cadastrar Cliente")
 
 @section('content')
 
@@ -10,7 +10,7 @@
         <div class="flex flex-column flex-wrap justify-items-center align-items-center">
 
             <div class="p-4 w-1/2 row flex flex-wrap items-center justify-between">
-                <h1>Editar Cliente</h1>
+                <h1>{{$customer->id != null ? "Editar cliente - " . $customer->id : "Cadastrar novo cliente"}}</h1>
             </div>
             <div class="p-2 w-1/2 row flex flex-wrap items-center justify-between">
                 <input type="hidden" id="id" name="id" value="{{ old('id', $customer->id) }}">
