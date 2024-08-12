@@ -6,6 +6,8 @@
     <title>@yield('title', 'My App')</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="{{ Vite::asset('resources/js/app.js') }}" type="module"></script>
+    @vite('resources/css/app.scss')
+
     @yield('styles')
 </head>
 <body>

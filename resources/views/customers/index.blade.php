@@ -6,35 +6,42 @@
     <div class="">
         <div class="p-4 bg-white">
 
-            <table class="table-auto m-auto bg-white p-2">
+            <table class="table-auto w-full bg-white p-2">
                 <thead>
                 <tr class="border-b-2 text-center">
-                    @foreach(["Nome","Email","Data de Nascimento","Documento", "Ações"] as $costumer)
+                    @foreach($fields as $field)
                         <th>
                             <a
                                     href=""
                             >
-                                {{$costumer}}
+                                @lang('fields.'.$field['name'])
                             </a>
                         </th>
                     @endforeach
                 </tr>
                 </thead>
                 <thead>
-                <tr class="border-b-2">
-                    @foreach(["Nome","Email","Data de Nascimento","Documento", "Ações"] as $costumer)
-                        <th class="p-2">
-                            <input
-                                    type="text"
-                                    id="{{$costumer}}"
-                                    class="w-full form-control border border-gray-300 p-2"
-                                    style="height:28px"
-                                    value=""
-                                    onchange=""
-                            />
-                        </th>
-                    @endforeach
-                </tr>
+                <form method="GET" id="searchForm" action="{{ route('customers.index') }}">
+
+                    <tr class="border-b-2">
+                        @foreach($fields as $field)
+                            @if($field['searchable'])
+                            <th class="p-2">
+                                <input
+                                        type="text"
+                                        id="{{$field['name']}}"
+                                        class="w-full form-control border border-gray-300 p-2"
+                                        style="height:28px"
+                                        value="{{$searchParams[$field['name']] ?? ''}}"
+                                        name="search[{{$field['name']}}]"
+                                        onchange="searchTable()"
+                                />
+                            </th>
+                            @endif
+                        @endforeach
+                    </tr>
+                </form>
+
                 </thead>
                 <tbody>
                 @foreach($customers as $customer)
@@ -66,5 +73,16 @@
                 @endforeach
                 </tbody>
             </table>
+            <div class="mt-4">
+                {{ $customers->links() }}
+            </div>
+
         </div>
+@endsection
+@section('scripts')
+        <script>
+            function searchTable(){
+                document.querySelector('#searchForm').submit()
+            }
+        </script>
 @endsection

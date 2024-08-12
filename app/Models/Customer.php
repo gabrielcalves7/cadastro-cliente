@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -63,11 +61,12 @@ class Customer extends Model
     public function make(array $attributes): self
     {
         foreach ($attributes as $key => $value) {
-            $this->setAttribute($key, $value == 'birthDate'
-                ? Carbon::parse($value)
-                : $value
-            )
-            ;
+            $this->setAttribute(
+                $key,
+                $value == 'birthDate'
+                    ? Carbon::parse($value)
+                    : $value
+            );
         }
         return $this;
     }
@@ -102,29 +101,24 @@ class Customer extends Model
         }
     }
 
-    public static function getAll(): Builder|Collection
+    public function getAllPaginated($amountOfRows = 15)
     {
-        return self::all();
+        return self::paginate($amountOfRows);
     }
 
-    public static function getAllOrderedBy(Builder|Collection $query, $orderBy, bool $orderAsc): Collection
+
+    public function getPaginatedWithSearch($amountOfRows = 15, $searchParams)
     {
-        return $query->orderBy($orderBy, $orderAsc ? 'asc' : 'desc');
+        if ($searchParams == []) {
+            return $this->getAllPaginated();
+        }
+        $query = self::query();
+        foreach ($searchParams as $key => $value) {
+            $query->where($key, 'like', "%$value%");
+        }
+        return $query->paginate($amountOfRows);
     }
 
-    public function searchModel(Builder|Collection $query, $field, $value): Builder|Collection
-    {
-        return $query->where($this->getTableAndFieldName($field), 'like', '%' . $value . '%');
-    }
-
-    public function orderModel($query, $orderBy, $orderAsc): Builder|Collection
-    {
-        return $query->orderBy($orderBy, $orderAsc ? 'asc' : 'desc');
-    }
-
-    /**
-     * @param  int  $id
-     */
     public function setId(int $id): self
     {
         $this->id = $id;
@@ -132,9 +126,6 @@ class Customer extends Model
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;

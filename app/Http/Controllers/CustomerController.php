@@ -16,8 +16,46 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $customers = Customer::getAll();
-        return view('customers.index', ['customers' => $customers]);
+        $fields = [
+            [
+                "name" => "name",
+                "searchable" => true,
+            ],
+            [
+                "name" => "email",
+                "searchable" => true,
+            ],
+            [
+                "name" => "birthDate",
+                "searchable" => true,
+            ],
+            [
+                "name" => "document",
+                "searchable" => true,
+            ],
+
+            [
+                "name" => "actions",
+                "searchable" => false,
+            ],
+        ];
+
+        $searchParams = [];
+
+        foreach (request()->get('search') as $key => $value) {
+            if (!empty($value)) {
+                $searchParams[$key] = $value;
+            }
+        }
+
+        $customers = $this->customer->getPaginatedWithSearch(25, $searchParams);
+
+        return view('customers.index', [
+                'customers' => $customers,
+                'fields' => $fields,
+                'searchParams' => $searchParams
+            ]
+        );
     }
 
     public function create()
