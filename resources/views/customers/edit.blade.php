@@ -26,7 +26,7 @@
                 </div>
                 <div class="w-1/2 p-3">
                     <label for="birthDate">Birth Date:</label>
-                    <input class="w-full form-control border border-black" type="date" id="birthDate" name="birthDate" value="{{ old('birthDate', \Carbon\Carbon::parse($customer->birthDate)->format('Y-m-d')) }}" required>
+                    <input class="w-full form-control border border-black" type="date" id="birthDate" name="birthDate" value="{{ old('birthDate', \Carbon\Carbon::parse('\''.$customer->birthDate.'\'')->format('Y-m-d')) }}" required>
                     <br><br>
                 </div>
                 <div class="w-1/2 p-3">
