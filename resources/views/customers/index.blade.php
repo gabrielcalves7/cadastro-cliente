@@ -25,10 +25,10 @@
 
                     <tr class="border-b-2">
                         @foreach($fields as $field)
-                            @if($field['searchable'])
                             <th class="p-2">
                                 <input
                                         type="text"
+                                        {{!$field['searchable'] ? 'disabled' : ''}}
                                         id="{{$field['name']}}"
                                         class="w-full form-control border border-gray-300 p-2"
                                         style="height:28px"
@@ -37,7 +37,6 @@
                                         onchange="searchTable()"
                                 />
                             </th>
-                            @endif
                         @endforeach
                     </tr>
                 </form>

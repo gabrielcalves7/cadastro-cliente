@@ -12,25 +12,32 @@
 </head>
 <body>
 <header>
-    @include('components.header')  <!-- Header section -->
+    @include('components.header')
 </header>
 
 <main role="main" class="container mt-4">
-    @yield('content')  <!-- Main content section -->
+    @yield('content')
+
 </main>
 
 <footer>
-    @include('components.footer')  <!-- Footer section -->
+
+    @include('components.footer')
 </footer>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         @if (session('success'))
-            toastr.success('{{session('success')}}');
+            toastr.success('@lang('toastr.'.session('success'))');
         @elseif (session('error'))
-            toastr.warning('{{session('errpr')}}');
+            toastr.warning('@lang('toastr.'.session('error'))');
+        @endif
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+            toastr.error('@lang('toastr.'.$error)');
+            @endforeach
         @endif
     })
-</script>x
+</script>
 
 @yield('scripts')
 </body>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -14,37 +15,22 @@ class CustomerController extends Controller
         $this->customer = $customer;
     }
 
+    public function welcome()
+    {
+        return view('welcome');
+    }
+
     public function index()
     {
-        $fields = [
-            [
-                "name" => "name",
-                "searchable" => true,
-            ],
-            [
-                "name" => "email",
-                "searchable" => true,
-            ],
-            [
-                "name" => "birthDate",
-                "searchable" => true,
-            ],
-            [
-                "name" => "document",
-                "searchable" => true,
-            ],
-
-            [
-                "name" => "actions",
-                "searchable" => false,
-            ],
-        ];
+        $fields = $this->customer->getFormFields();
 
         $searchParams = [];
 
-        foreach (request()->get('search') as $key => $value) {
-            if (!empty($value)) {
-                $searchParams[$key] = $value;
+        if (request()->get('search') != null) {
+            foreach (request()->get('search') as $key => $value) {
+                if (!empty($value)) {
+                    $searchParams[$key] = $value;
+                }
             }
         }
 
@@ -58,32 +44,6 @@ class CustomerController extends Controller
         );
     }
 
-    public function create()
-    {
-        return view('customers.create');
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate($this->customer->getRules());
-
-        $created = $this->customer->updateOrCreate($request->all());
-
-        return redirect()->route('customers.index')->with(
-            $created
-                ? 'success'
-                : 'error',
-            $created
-                ? 'Customer created successfully.'
-                : 'Couldnt create customer.'
-        );
-    }
-
-    public function show(Customer $customer)
-    {
-        return view('customers.show', compact('customer'));
-    }
-
     public function edit(Customer $customer)
     {
         return view('customers.edit', compact('customer'));
@@ -92,19 +52,37 @@ class CustomerController extends Controller
     public function update(Request $request)
     {
         $customer = $this->customer;
-        $customer->setId($request->id);
+        if ($request->id != null) {
+            $customer->setId($request->id);
+        }
         $data = $request->validate($customer->getRules());
         $customer = $this->customer->make($data);
 
-        $created = $customer->updateOrCreate($request->all());
+        $saved = $customer->updateOrCreate();
 
-        return redirect()->route('customers.index')->with(
-            $created
-                ? 'success'
-                : 'error',
-            $created
-                ? 'Customer updated successfully.'
-                : 'Couldnt update customer.'
+        if($saved){
+            return redirect()->route('customers.index')->with(
+                'success',
+                'Customer created successfully.'
+            );
+        }
+
+        $emailInUse = $this->customer::where('email',$request->email);
+        $documentInUse = $this->customer::where('document',$request->document);
+
+        $errorMessage = "";
+
+        if($emailInUse){
+            $errorMessage = 'Email is already taken.';
+        }
+
+        else if($documentInUse){
+            $errorMessage = 'Document is already taken.';
+        }
+
+        return redirect()->back()->withInput()->with(
+            'error',
+            'Couldnt create customer. '.$errorMessage
         );
     }
 

@@ -77,10 +77,10 @@ class Customer extends Model
             'name' => 'required|min:3|max:191',
             'email' => 'required',
             'document' => 'required',
-            'birthDate' => 'required',
+            'birthDate' => 'required|date|before:today',
         ];
 
-        if ($this->id != null) {
+        if (isset($this->id) && $this->id != null) {
             $editRules = [
                 'id' => 'required|exists:customers,id',
             ];
@@ -105,7 +105,10 @@ class Customer extends Model
     {
         return self::paginate($amountOfRows);
     }
-
+    public function getBirthDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y');
+    }
 
     public function getPaginatedWithSearch($amountOfRows = 15, $searchParams)
     {
@@ -114,22 +117,61 @@ class Customer extends Model
         }
         $query = self::query();
         foreach ($searchParams as $key => $value) {
-            $query->where($key, 'like', "%$value%");
+            if($this->isSearchable($key)){
+                $query->where($key, 'like', "%$value%");
+            }
         }
         return $query->paginate($amountOfRows);
     }
 
-    public function setId(int $id): self
+    public function setId(int | null $id): self
     {
         $this->id = $id;
 
         return $this;
     }
 
+
+    public function getFormFields(): array{
+        return [
+            [
+                "name" => "name",
+                "searchable" => true,
+            ],
+            [
+                "name" => "email",
+                "searchable" => true,
+            ],
+            [
+                "name" => "birthDate",
+                "searchable" => false,
+            ],
+            [
+                "name" => "document",
+                "searchable" => true,
+            ],
+
+            [
+                "name" => "actions",
+                "searchable" => false,
+            ],
+        ];
+    }
     public function getId(): int
     {
         return $this->id;
     }
 
+    public function isSearchable($key)
+    {
+        $fields = $this->getFormFields();
 
+        foreach ($fields as $field) {
+            if ($field['name'] === $key) {
+                return $field['searchable'];
+            }
+        }
+
+        return false;
+    }
 }
