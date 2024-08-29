@@ -11,6 +11,7 @@
     "dependencies": {
         "toastr": "^2.1.4",
         "axios": "^1.6.1",
+        "daisyui": "^4.12.10",
         "laravel-vite-plugin": "^1.0.0",
         "postcss": "^8.4.33",
         "sass": "^1.77.8",
