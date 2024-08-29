@@ -3,10 +3,10 @@
 @section('title', 'Lista de Clientes')
 
 @section('content')
-    <div class="">
+    <div data-theme="dracula" class="">
         <div class="p-4 bg-white">
 
-            <table class="table-auto w-full bg-white p-2">
+            <table class="table table-auto w-full bg-white p-2">
                 <thead>
                 <tr class="border-b-2 text-center">
                     @foreach($fields as $field)

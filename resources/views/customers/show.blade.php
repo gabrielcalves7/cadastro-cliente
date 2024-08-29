@@ -3,7 +3,7 @@
 @section('title', 'Home Page')
 
 @section('content')
-<h1>Editar Cliente</h1>
+<h1 data-theme="dracula" class="h1">Editar Cliente</h1>
 
 @if (session('success'))
     <p style="color: green;">{{ session('success') }}</p>
@@ -25,46 +25,46 @@
     >
 
     @csrf
-    <div class="p-2 w-1/2 row flex flex-wrap items-center justify-between">
+    <div data-theme="dracula" class="p-2 w-1/2 row flex flex-wrap items-center justify-between">
         <input type="hidden" id="id" name="id" value="{{ old('id', $customer->id) }}">
         <div class="w-1/2 p-3">
-            <label for="name">Name:</label>
+            <label class="label" for="name">Name:</label>
             <input
-                class="w-full form-control border border-black"
+                class="input input-bordered w-full form-control"
                 type="text" id="name" name="name" value="{{ old('name', $customer->name) }}" required>
             <br><br>
         </div>
         <div class="w-1/2 p-3">
-            <label for="document">Document:</label>
+            <label class="label" for="document">Document:</label>
             <input
-                class="w-full form-control border border-black"
+                class="input input-bordered w-full form-control"
                 type="text" id="document" name="document" value="{{ old('document', $customer->document) }}" required>
             <br><br>
         </div>
         <div class="w-1/2 p-3">
-            <label for="birthDate">Birth Date:</label>
+            <label class="label" for="birthDate">Birth Date:</label>
             <input
-                class="w-full form-control border border-black"
+                class="input input-bordered w-full form-control"
                 type="date" id="birthDate" name="birthDate" value="{{ old('birthDate', $customer->birthDate) }}" required>
             <br><br>
         </div>
 
         <div class="w-1/2 p-3">
-            <label for="email">Email:</label>
+            <label class="label"  for="email">Email:</label>
             <input
-                class="w-full form-control border border-black"
+                class="input input-bordered w-full form-control"
                 type="email" id="email" name="email" value="{{ old('email', $customer->email) }}" required>
             <br><br>
         </div>
         <div class="flex">
             <button
-                    class="ms-2 bg-sky-500 hover:bg-sky-400 text-white mt-2 font-bold py-2 px-4 border-b-4 border-sky-700 hover:border-sky-500 rounded"
+                    class="btn ms-2 bg-sky-500 hover:bg-sky-400 mt-2 font-bold py-2 px-4 border-b-4 border-sky-700 hover:border-sky-500 rounded"
                     type="submit"
             >
                 Update
             </button>
             <button
-                    class="ms-2 bg-red-500 hover:bg-red-400 text-white mt-2 font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"
+                    class="btn ms-2 bg-red-500 hover:bg-red-400 mt-2 font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"
                     type="button"
                     onclick="handleDelete(this)"
             >

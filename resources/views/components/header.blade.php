@@ -1,10 +1,10 @@
 <!-- resources/views/components/header.blade.php -->
 
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-sky-400">
-        <div class="container justify-content-center">
+<header data-theme="dracula">
+    <nav class="navbar navbar-center navbar-expand-lg">
+        <div class="prose text text-lg badge-lg container justify-content-center flex">
             <a href="{{route('welcome')}}">
-                <p class="bg-green w-full">Gerenciador de Cadastro de Clientes</p>
+                <p class="w-full flex-center text-xl">Gerenciador de Cadastro de Clientes</p>
             </a>
         </div>
     </nav>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html data-theme="dracula" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,12 +10,12 @@
 
     @yield('styles')
 </head>
-<body>
+<body data-theme="dracula">
 <header>
     @include('components.header')
 </header>
 
-<main role="main" class="container mt-4">
+<main data-theme="dracula" role="main" class="container mt-4">
     @yield('content')
 
 </main>
