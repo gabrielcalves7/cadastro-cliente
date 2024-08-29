@@ -9,27 +9,27 @@
         @csrf
         <div class="flex flex-column flex-wrap justify-items-center align-items-center">
 
-            <div class="p-4 w-1/2 row flex flex-wrap items-center justify-between">
+            <div class="py-4 w-1/2 row flex flex-wrap items-center justify-between">
                 <h3 class="h3">{{$customer->id != null ? "Editar cliente - " . $customer->id : "Cadastrar novo cliente"}}</h1>
             </div>
-            <div class="p-2 w-1/2 row flex flex-wrap items-center justify-between">
+            <div class="w-1/2 row flex flex-wrap items-center justify-between">
                 <input type="hidden" id="id" name="id" value="{{ old('id', $customer->id) }}">
-                <div class="w-1/2 p-3">
+                <div class="w-1/2 py-3 pe-3 ps-0">
                     <label class="label" for="name">Nome:</label>
                     <input class="input input-bordered w-full form-control" type="text" id="name" name="name" value="{{ old('name', $customer->name) }}" required>
                     <br><br>
                 </div>
-                <div class="w-1/2 p-3">
+                <div class="w-1/2 py-3 pe-0 ps-3">
                     <label class="label" for="document">CPF:</label>
                     <input class="input input-bordered w-full form-control" type="text" id="document" name="document" value="{{ old('document', $customer->document) }}" required>
                     <br><br>
                 </div>
-                <div class="w-1/2 p-3">
+                <div class="w-1/2 py-3 pe-3 ps-0">
                     <label class="label" for="birthDate">Data de Nascimento:</label>
                     <input class="input input-bordered w-full form-control" type="date" id="birthDate" name="birthDate" value="{{ old('birthDate', \Carbon\Carbon::createFromFormat('d/m/Y',$customer->birthDate)->format('Y-m-d')) }}" required>
                     <br><br>
                 </div>
-                <div class="w-1/2 p-3">
+                <div class="w-1/2 py-3 pe-0 ps-3">
                     <label class="label" for="email">Email:</label>
                     <input class="input input-bordered w-full form-control" type="email" id="email" name="email" value="{{ old('email', $customer->email) }}" required>
                     <br><br>
