@@ -3,15 +3,14 @@
 @section('title', 'Lista de Clientes')
 
 @section('content')
-    <div data-theme="dracula" class="">
-        <div class="p-4 bg-white">
-
-            <table class="table table-auto w-full bg-white p-2">
+    <div data-theme="dracula">
+        <div class="p-4">
+            <table class="table table-auto w-full p-2">
                 <thead>
                 <tr class="border-b-2 text-center">
                     @foreach($fields as $field)
-                        <th>
-                            <p class="text-black text-lg">@lang('fields.'.$field['name'])</p>
+                        <th data-theme="dracula">
+                            <p class="text text-lg">@lang('fields.'.$field['name'])</p>
                         </th>
                     @endforeach
                 </tr>
@@ -19,14 +18,14 @@
                 <thead>
                 <form method="GET" id="searchForm" action="{{ route('customers.index') }}">
 
-                    <tr class="border-b-2">
+                    <tr data-theme="dracula" class="border-b-2">
                         @foreach($fields as $field)
                             <th class="p-2">
                                 <input
                                         type="text"
                                         {{!$field['searchable'] ? 'disabled' : ''}}
                                         id="{{$field['name']}}"
-                                        class="w-full form-control border border-gray-300 p-2"
+                                        class="input input-outline w-full form-control border border-gray-300 p-2"
                                         style="height:28px"
                                         value="{{$searchParams[$field['name']] ?? ''}}"
                                         name="search[{{$field['name']}}]"
@@ -38,31 +37,31 @@
                 </form>
 
                 </thead>
-                <tbody>
+                <tbody data-theme="dracula">
                 @foreach($customers as $customer)
                     <tr class="border-b-2 text-center" style="height:80px">
-                        <td>
+                        <td class="align-middle">
                             <p class="text-lg">
                                 {{$customer->name}}
                             </p>
                         </td>
-                        <td>
+                        <td class="align-middle">
                             <p class="text-lg">
                                 {{$customer->email}}
                             </p>
                         </td>
-                        <td>
+                        <td class="align-middle">
                             <p class="text-lg">
                                 {{$customer->birthDate}}
                             </p>
                         </td>
-                        <td>
+                        <td class="align-middle">
                             <p class="text-lg">
                                 {{$customer->document}}
                             </p>
                         </td>
-                        <td>
-                            <a href="{{route('customers.edit',$customer)}}">Ver</a>
+                        <td class="align-middle" >
+                            <a class="badge badge-lg badge-neutral" href="{{route('customers.edit',$customer)}}">Ver</a>
                         </td>
                     </tr>
                 @endforeach

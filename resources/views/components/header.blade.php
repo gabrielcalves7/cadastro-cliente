@@ -2,9 +2,9 @@
 
 <header data-theme="dracula">
     <nav class="navbar navbar-center navbar-expand-lg">
-        <div class="prose text text-lg badge-lg container justify-content-center flex">
+        <div class="container justify-content-center flex">
             <a href="{{route('welcome')}}">
-                <p class="w-full flex-center text-xl">Gerenciador de Cadastro de Clientes</p>
+                <p class="w-full flex-center text text-4xl italic font-sans">Gerenciador de Cadastro de Clientes</p>
             </a>
         </div>
     </nav>
