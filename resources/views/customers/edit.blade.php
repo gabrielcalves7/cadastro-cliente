@@ -15,17 +15,17 @@
             <div class="p-2 w-1/2 row flex flex-wrap items-center justify-between">
                 <input type="hidden" id="id" name="id" value="{{ old('id', $customer->id) }}">
                 <div class="w-1/2 p-3">
-                    <label class="label" for="name">Name:</label>
+                    <label class="label" for="name">Nome:</label>
                     <input class="input input-bordered w-full form-control" type="text" id="name" name="name" value="{{ old('name', $customer->name) }}" required>
                     <br><br>
                 </div>
                 <div class="w-1/2 p-3">
-                    <label class="label" for="document">Document:</label>
+                    <label class="label" for="document">CPF:</label>
                     <input class="input input-bordered w-full form-control" type="text" id="document" name="document" value="{{ old('document', $customer->document) }}" required>
                     <br><br>
                 </div>
                 <div class="w-1/2 p-3">
-                    <label class="label" for="birthDate">Birth Date:</label>
+                    <label class="label" for="birthDate">Data de Nascimento:</label>
                     <input class="input input-bordered w-full form-control" type="date" id="birthDate" name="birthDate" value="{{ old('birthDate', \Carbon\Carbon::createFromFormat('d/m/Y',$customer->birthDate)->format('Y-m-d')) }}" required>
                     <br><br>
                 </div>

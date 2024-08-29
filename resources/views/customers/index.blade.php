@@ -11,11 +11,7 @@
                 <tr class="border-b-2 text-center">
                     @foreach($fields as $field)
                         <th>
-                            <a
-                                    href=""
-                            >
-                                @lang('fields.'.$field['name'])
-                            </a>
+                            <p class="text-black text-lg">@lang('fields.'.$field['name'])</p>
                         </th>
                     @endforeach
                 </tr>
