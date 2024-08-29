@@ -7,7 +7,7 @@
     <!-- Update Form -->
     <form data-theme="dracula" action="{{ route('customers.update') }}" method="POST" class="border-color-black border-solid" id="form">
         @csrf
-        <div class="flex flex-column flex-wrap justify-items-center align-items-center">
+        <div data-theme="dracula" class="flex flex-column flex-wrap justify-items-center align-items-center">
 
             <div class="py-4 w-1/2 row flex flex-wrap items-center justify-between">
                 <h3 class="h3">{{$customer->id != null ? "Editar cliente - " . $customer->id : "Cadastrar novo cliente"}}</h1>
